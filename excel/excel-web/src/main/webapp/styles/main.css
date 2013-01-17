@@ -1,0 +1,111 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+html,body {
+	min-height: 100%;
+	position: relative;
+}
+
+div #header {
+	font-size: 30px;
+	height: 150px;
+	width: 100%;
+	margin: auto;
+	background-color: #FFFFFF;
+	/* For WebKit (Safari, Chrome, etc) */
+	background: #FFFFFF
+		-webkit-gradient(linear, left top, left bottom, from(#54A4C5),
+		to(#FFFFFF) ) no-repeat;
+	/* Mozilla,Firefox/Gecko */
+	background: #FFFFFF -moz-linear-gradient(top, #54A4C5, #FFFFFF)
+		no-repeat;
+	/* IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#54A4C5,
+		endColorstr=#FFFFFF ) no-repeat;
+	/* IE 8 */
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#54A4C5, endColorstr=#54A4C5)"
+		no-repeat;
+}
+
+div #content {
+	width: 100%;
+	float: left;
+}
+
+div #menu {
+	text-indent: 20px;
+	padding-bottom:20px;
+}
+
+div #main {
+	float: left;
+	clear: top;
+	position: relative;
+	margin-left:20px;
+}
+
+#footer {
+	height: 120px;
+	clear: both;
+}
+
+.outline {
+	padding: 20px;
+	border-width: thick;
+	border-style: solid;
+	border-radius: 20px;
+	border-style: solid;
+	border-color: green;
+	border-width: thick;
+}
+
+#menu ul {
+	list-style-type: none;
+	text-align: left;
+	border: 0px;
+	padding: 0px;
+	list-style: none outside none;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+#menu ul li {
+	padding-top: 3px;
+	display:inline;
+	padding: 15px;
+	margin-right: 4px;
+	font-style: italic;
+	font-size: 20px;
+}
+
+td.side_td {
+	vertical-align: top;
+}
+
+td.content_td {
+	vertical-align: top;
+}
+
+h1#heading {
+	padding-top: 25px;
+	text-align: center;
+}
+
+p {
+	padding-bottom: 10px;
+}
+
+input {
+	border: 1px solid;
+}
+
+font.WARN {
+	color: red;
+}
+a.title{
+	font-size: 20px;
+}
