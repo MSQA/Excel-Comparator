@@ -20,6 +20,6 @@ public interface ComparitorService {
 	 * @return ComparitorResult show differences between files
 	 * @throws Exception
 	 */
-	public ComparitorResult compareRsrReport(File origional, File current) throws Exception;
+	public ComparitorResult compareReports(File origional, File current) throws Exception;
 
 }

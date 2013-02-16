@@ -7,12 +7,20 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.yodes.excel.comparitor.model.ComparitorResult;
 
 public class BasicComparitor implements Comparitor {
 
+	private static final Logger logger = LoggerFactory.getLogger(BasicComparitor.class);
+
 	public ComparitorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparitorResult comparitorResult) throws Exception {
+		if (logger.isDebugEnabled()) {
+			// TODO: create aspect for this
+			logger.debug("Starting comparision of workbooks");
+		}
 		int numOfSheets = origional.getNumberOfSheets();
 		int currentNumOfSheets = current.getNumberOfSheets();
 		List<String> sheetNames = new ArrayList<String>();

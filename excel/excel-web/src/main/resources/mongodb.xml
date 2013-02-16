@@ -13,7 +13,7 @@
 	<!-- mongod -dbpath mongodb <dash><dash>rest -->
 
 	<mongo:db-factory host="localhost" port="27017"
-		dbname="artdb" />
+		dbname="excel" />
 
 	<mongo:repositories base-package="com.emc.qa.art.web.dao" />
 

@@ -12,8 +12,6 @@
 
 	<import resource="classpath:tiles-context.xml" />
 
-	<import resource="classpath:webservices-context.xml" />
-
 	<import resource="classpath:mongodb.xml" />
 
 	<!-- Configure the multipart resolver -->

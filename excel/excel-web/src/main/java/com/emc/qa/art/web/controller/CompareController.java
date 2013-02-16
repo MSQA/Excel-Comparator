@@ -60,7 +60,7 @@ public class CompareController implements InitializingBean {
 			String resultUUID = UUID.randomUUID().toString();
 			File origionalFile = getFileFromCommonsMultipartFile(compare.getOriginalFile(), resultUUID);
 			File currentFile = getFileFromCommonsMultipartFile(compare.getNewFile(), resultUUID);
-			ComparitorResult compareResult = comparitorService.compareRsrReport(origionalFile, currentFile);
+			ComparitorResult compareResult = comparitorService.compareReports(origionalFile, currentFile);
 			saveResult(compareResult, origionalFile.getName(), resultUUID);
 			logger.info("Is error found in compare =  " + compareResult.isDifferenceDetected() + " with label : " + resultUUID);
 			resultsController.populateModelWithResults(model, resultUUID);

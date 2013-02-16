@@ -17,7 +17,7 @@ public class ComparitorServiceImpl implements ComparitorService {
 
 	BasicComparitor rc = new BasicComparitor();
 
-	public ComparitorResult compareRsrReport(File origional, File current) throws Exception {
+	public ComparitorResult compareReports(File origional, File current) throws Exception {
 		ComparitorResult comparitorResult = new ComparitorResult();
 		HSSFWorkbook origionalWorkBook = FileUtil.getHSSFWorkbook(origional);
 		HSSFWorkbook currentWorkBook = FileUtil.getHSSFWorkbook(current);

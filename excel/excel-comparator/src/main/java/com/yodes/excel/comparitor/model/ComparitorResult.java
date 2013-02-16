@@ -46,6 +46,7 @@ public class ComparitorResult {
 	}
 
 	public void addConflictingRows(HSSFRow origional, HSSFRow current) {
+		differenceDetected = Boolean.TRUE;
 		conflictingRows.add(convertToExcelRow(origional));
 		conflictingRows.add(convertToExcelRow(current));
 	}

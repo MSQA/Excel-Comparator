@@ -15,9 +15,9 @@ public class ComparitorServiceImplTest {
 
 	@Test
 	public void testCompare() throws Exception {
-		File origional = new File("target/test-classes/test_Remediation.xls");
-		File current = new File("target/test-classes/new_test_Remediation.xls");
-		ComparitorResult cr = cs.compareRsrReport(origional, current);
+		File origional = new File("target/test-classes/2003_original.xls");
+		File current = new File("target/test-classes/2003_updated.xls");
+		ComparitorResult cr = cs.compareReports(origional, current);
 		TestCase.assertTrue(cr.isDifferenceDetected());
 		TestCase.assertEquals(0, cr.getExtraSheet().size());
 		TestCase.assertEquals(1, cr.getMissingSheet().size());
@@ -26,9 +26,9 @@ public class ComparitorServiceImplTest {
 
 	@Test
 	public void testCompareEqual() throws Exception {
-		File origional = new File("target/test-classes/test_Remediation.xls");
-		File current = new File("target/test-classes/test_Remediation.xls");
-		ComparitorResult cr = cs.compareRsrReport(origional, current);
+		File origional = new File("target/test-classes/2003_original.xls");
+		File current = new File("target/test-classes/2003_original.xls");
+		ComparitorResult cr = cs.compareReports(origional, current);
 		TestCase.assertFalse(cr.isDifferenceDetected());
 	}
 }
