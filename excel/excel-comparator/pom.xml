@@ -36,6 +36,14 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<testResources>
@@ -45,6 +53,7 @@
 					<include>**/*.properties</include>
 					<include>**/*.xlsx</include>
 					<include>**/*.xls</include>
+					<include>**/*.xml</include>
 				</includes>
 			</testResource>
 		</testResources>

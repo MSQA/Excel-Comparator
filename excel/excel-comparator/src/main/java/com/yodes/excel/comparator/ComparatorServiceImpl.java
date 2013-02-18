@@ -6,6 +6,8 @@ package com.yodes.excel.comparator;
 import java.io.File;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.yodes.excel.comparator.model.ComparatorResult;
 import com.yodes.excel.comparator.util.FileUtil;
@@ -13,9 +15,11 @@ import com.yodes.excel.comparator.util.FileUtil;
 /**
  * ELA Remediation Report Service
  */
+@Service
 public class ComparatorServiceImpl implements ComparatorService {
 
-	BasicComparator rc = new BasicComparator();
+	@Autowired
+	private Comparator rc;
 
 	public ComparatorResult compareReports(File origional, File current) throws Exception {
 		ComparatorResult comparitorResult = new ComparatorResult();
