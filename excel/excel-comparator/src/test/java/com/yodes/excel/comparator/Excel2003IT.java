@@ -4,7 +4,6 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import com.yodes.excel.comparator.model.ComparatorResult;
 @ContextConfiguration(locations = {
 	"classpath:excel-comparator-applicationContext.xml"
 })
-@Ignore
 public class Excel2003IT {
 
 	@Autowired
@@ -30,8 +28,8 @@ public class Excel2003IT {
 		ComparatorResult cr = cs.compareReports(origional, current);
 		TestCase.assertTrue(cr.isDifferenceDetected());
 		TestCase.assertEquals(0, cr.getExtraSheet().size());
-		TestCase.assertEquals(1, cr.getMissingSheet().size());
-		TestCase.assertEquals("ESX Servers", cr.getMissingSheet().get(0));
+		TestCase.assertEquals(0, cr.getMissingSheet().size());
+		TestCase.assertEquals("test file", cr.getConflictingRows().get(0).getCells().get(0));
 	}
 
 	@Test
