@@ -1,5 +1,6 @@
-package com.yodes.excel.comparator;
+package com.yodes.excel.comparator.comparators;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,20 +8,45 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.yodes.excel.comparator.Comparator;
 import com.yodes.excel.comparator.model.ComparatorResult;
+import com.yodes.excel.comparator.util.ComparatorUtils;
+import com.yodes.excel.comparator.util.FileUtil;
 
+/**
+ * Comparator to detect and compare HSSF spreadsheets
+ * 
+ * @author Stephen Dillon
+ */
 @Service
-public class BasicComparator implements Comparator {
+public class HSSFComparator implements Comparator {
 
-	private static final Logger logger = LoggerFactory.getLogger(BasicComparator.class);
+	private static final Logger logger = LoggerFactory.getLogger(HSSFComparator.class);
 
 	private static final boolean debugEnabled = logger.isDebugEnabled();
 
-	public ComparatorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparatorResult comparitorResult) throws Exception {
+	@Override
+	public boolean isComparator(File origional, File current) throws Exception {
+		try {
+			FileUtil.getHSSFWorkbook(origional);
+			FileUtil.getHSSFWorkbook(current);
+		} catch (OfficeXmlFileException ox) {
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public void compare(File origional, File current, ComparatorResult comparitorResult) throws Exception {
+		compare(FileUtil.getHSSFWorkbook(origional), FileUtil.getHSSFWorkbook(current), comparitorResult);
+	}
+
+	protected ComparatorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparatorResult comparitorResult) throws Exception {
 		if (debugEnabled) {
 			logger.debug("Starting comparision of workbooks");
 		}
@@ -80,7 +106,7 @@ public class BasicComparator implements Comparator {
 								logger.debug("Comparing cells " + orgionalString.getString() + " : " + currentString.getString());
 							}
 							if (!orgionalString.equals(currentString)) {
-								comparitorResult.addConflictingRows(origionalRow, currentRow);
+								comparitorResult.addConflictingRows(ComparatorUtils.convertToExcelRow(origionalRow), ComparatorUtils.convertToExcelRow(currentRow));
 							}
 						} catch (Exception e) {
 							logger.error("Exception reading cell value from sheet", e);

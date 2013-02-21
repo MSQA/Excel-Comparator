@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-
 public class ComparatorResult {
 
 	private boolean differenceDetected;
@@ -35,41 +32,20 @@ public class ComparatorResult {
 		differenceDetected = Boolean.TRUE;
 	}
 
-	public void addMissingRow(HSSFRow missingRow) {
-		missingRows.add(convertToExcelRow(missingRow));
+	public void addMissingRow(ExcelRow missingRow) {
+		missingRows.add(missingRow);
 		differenceDetected = Boolean.TRUE;
 	}
 
-	public void addExtraRow(HSSFRow extraRow) {
-		extraRows.add(convertToExcelRow(extraRow));
+	public void addExtraRow(ExcelRow extraRow) {
+		extraRows.add(extraRow);
 		differenceDetected = Boolean.TRUE;
 	}
 
-	public void addConflictingRows(HSSFRow origional, HSSFRow current) {
+	public void addConflictingRows(ExcelRow origional, ExcelRow current) {
 		differenceDetected = Boolean.TRUE;
-		conflictingRows.add(convertToExcelRow(origional));
-		conflictingRows.add(convertToExcelRow(current));
-	}
-
-	private ExcelRow convertToExcelRow(HSSFRow row) {
-		ExcelRow excelRow = new ExcelRow();
-		if (row != null) {
-			if (row.getLastCellNum() != -1) {
-				for (int j = 0; j < row.getLastCellNum(); j++) {
-					try {
-						if (row.getCell(j) != null) {
-							HSSFRichTextString orgionalString = row.getCell(j).getRichStringCellValue();
-							excelRow.getCells().add(orgionalString.toString());
-						} else {
-							excelRow.getCells().add(" ");
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		return excelRow;
+		conflictingRows.add(origional);
+		conflictingRows.add(current);
 	}
 
 	/**

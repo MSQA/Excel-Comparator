@@ -1,6 +1,3 @@
-/**
- * This code is copyright (c) 2012 EMC Corporation
- */
 package com.yodes.excel.comparator;
 
 import java.io.File;

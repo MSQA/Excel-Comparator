@@ -1,9 +1,31 @@
 package com.yodes.excel.comparator;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import java.io.File;
 
 import com.yodes.excel.comparator.model.ComparatorResult;
 
 public interface Comparator {
-	ComparatorResult compare(HSSFWorkbook origionalWorkBook, HSSFWorkbook currentWorkBook, ComparatorResult comparitorResult) throws Exception;
+
+	/**
+	 * Test to check if this comparator can compare these sheets
+	 * 
+	 * @param origional
+	 *            sheet to use as base
+	 * @param current
+	 *            sheet to detect changes in
+	 * @return boolean if this comparator can compare these files
+	 * @throws Exception
+	 */
+	boolean isComparator(File origional, File current) throws Exception;
+
+	/**
+	 * @param origional
+	 *            sheet to use as base
+	 * @param current
+	 *            sheet to detect changes in
+	 * @param comparitorResult
+	 *            listing all differences (hopefully...)
+	 * @throws Exception
+	 */
+	void compare(File origional, File current, ComparatorResult comparitorResult) throws Exception;
 }
