@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.yodes.excel.comparator.comparators.Comparator;
 import com.yodes.excel.comparator.model.ComparatorResult;
 
 /**

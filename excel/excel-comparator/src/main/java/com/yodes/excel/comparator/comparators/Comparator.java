@@ -1,4 +1,4 @@
-package com.yodes.excel.comparator;
+package com.yodes.excel.comparator.comparators;
 
 import java.io.File;
 
