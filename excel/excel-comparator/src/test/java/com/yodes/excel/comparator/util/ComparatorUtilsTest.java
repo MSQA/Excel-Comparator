@@ -5,7 +5,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
-import com.yodes.excel.comparator.model.ExcelRow;
+import com.yodes.excel.model.ExcelRow;
 
 public class ComparatorUtilsTest {
 

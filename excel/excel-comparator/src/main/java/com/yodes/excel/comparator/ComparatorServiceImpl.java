@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.yodes.excel.comparator.comparators.Comparator;
-import com.yodes.excel.comparator.model.ComparatorResult;
+import com.yodes.excel.model.ComparatorResult;
 
 /**
  * Service to compare files. Currently supported formats listed below

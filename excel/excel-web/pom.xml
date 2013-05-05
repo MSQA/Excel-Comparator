@@ -1,9 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yodes.excel</groupId>
 	<artifactId>excel-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>excel-web</name>
 	<description>excel-web</description>
@@ -12,34 +10,23 @@
 		<artifactId>excel</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<properties>
-		<org.apache.tiles-version>2.2.2</org.apache.tiles-version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.yodes.excel</groupId>
 			<artifactId>excel-comparator</artifactId>
 		</dependency>
-		<!-- SQL jdbc connector -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
+			<groupId>com.yodes.excel</groupId>
+			<artifactId>excel-model</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- Include this as 3.2.2 removes asm and integrated to core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -50,6 +37,10 @@
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
@@ -57,26 +48,14 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-		</dependency>
 		<!-- Apache Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-jsp</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>com.springsource.slf4j.api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>com.springsource.ch.qos.logback.classic</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -87,27 +66,15 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.9</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.9</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
 		</dependency>
 
 		<!-- Test artifacts -->
@@ -120,20 +87,19 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.1.0.RELEASE</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>excel</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 		</resources>
@@ -142,57 +108,9 @@
 				<directory>src/test/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</testResource>
 		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>${maven.tomcat.plugin}</version>
-				<configuration>
-					<systemProperties>
-						<com.sun.management.jmxremote>true</com.sun.management.jmxremote>
-						<com.sun.management.jmxremote.port>8050</com.sun.management.jmxremote.port>
-						<com.sun.management.jmxremote.ssl>false</com.sun.management.jmxremote.ssl>
-						<com.sun.management.jmxremote.authenticate>false</com.sun.management.jmxremote.authenticate>
-						<java.util.logging.manager>org.apache.juli.ClassLoaderLogManager</java.util.logging.manager>
-						<logback.ContextSelector>JNDI</logback.ContextSelector>
-					</systemProperties>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.slf4j</groupId>
-						<artifactId>jcl-over-slf4j</artifactId>
-						<version>${slf4j.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-					<dependency>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-api</artifactId>
-						<version>${slf4j.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-					<dependency>
-						<groupId>org.slf4j</groupId>
-						<artifactId>jul-to-slf4j</artifactId>
-						<version>${slf4j.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-					<dependency>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-classic</artifactId>
-						<version>${logback.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-					<dependency>
-						<groupId>ch.qos.logback</groupId>
-						<artifactId>logback-access</artifactId>
-						<version>${logback.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-				</dependencies>
-			</plugin>
-		</plugins>
 	</build>
 </project>

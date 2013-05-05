@@ -2,7 +2,7 @@ package com.yodes.excel.comparator.comparators;
 
 import java.io.File;
 
-import com.yodes.excel.comparator.model.ComparatorResult;
+import com.yodes.excel.model.ComparatorResult;
 
 public interface Comparator {
 

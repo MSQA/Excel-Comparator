@@ -4,18 +4,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.yodes.excel.comparator.model.ComparatorResult;
 import com.yodes.excel.comparator.util.ComparatorUtils;
 import com.yodes.excel.comparator.util.FileUtil;
+import com.yodes.excel.model.ComparatorResult;
 
 /**
  * Comparator to detect and compare HSSF spreadsheets
@@ -25,7 +24,7 @@ import com.yodes.excel.comparator.util.FileUtil;
 @Service
 public class HSSFComparator implements Comparator {
 
-	private static final Logger logger = LoggerFactory.getLogger(HSSFComparator.class);
+	private static final Logger logger = Logger.getLogger(HSSFComparator.class);
 
 	private static final boolean debugEnabled = logger.isDebugEnabled();
 
@@ -45,7 +44,8 @@ public class HSSFComparator implements Comparator {
 		compare(FileUtil.getHSSFWorkbook(origional), FileUtil.getHSSFWorkbook(current), comparitorResult);
 	}
 
-	protected ComparatorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparatorResult comparitorResult) throws Exception {
+	protected ComparatorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparatorResult comparitorResult)
+			throws Exception {
 		if (debugEnabled) {
 			logger.debug("Starting comparision of workbooks");
 		}
@@ -102,10 +102,12 @@ public class HSSFComparator implements Comparator {
 							HSSFRichTextString orgionalString = origionalRow.getCell(j).getRichStringCellValue();
 							HSSFRichTextString currentString = currentRow.getCell(j).getRichStringCellValue();
 							if (debugEnabled) {
-								logger.debug("Comparing cells " + orgionalString.getString() + " : " + currentString.getString());
+								logger.debug("Comparing cells " + orgionalString.getString() + " : "
+										+ currentString.getString());
 							}
 							if (!orgionalString.equals(currentString)) {
-								comparitorResult.addConflictingRows(ComparatorUtils.convertToExcelRow(origionalRow), ComparatorUtils.convertToExcelRow(currentRow));
+								comparitorResult.addConflictingRows(ComparatorUtils.convertToExcelRow(origionalRow),
+										ComparatorUtils.convertToExcelRow(currentRow));
 							}
 						} catch (Exception e) {
 							logger.error("Exception reading cell value from sheet", e);

@@ -2,7 +2,7 @@ package com.yodes.excel.comparator;
 
 import java.io.File;
 
-import com.yodes.excel.comparator.model.ComparatorResult;
+import com.yodes.excel.model.ComparatorResult;
 
 /**
  * Service to compare two excel files and return a {@link ComparatorResult}
