@@ -2,7 +2,7 @@ package com.yodes.excel.web.util;
 
 import java.util.Comparator;
 
-import com.yodes.excel.web.model.Result;
+import com.yodes.excel.model.Result;
 
 public class ResultsComparitor implements Comparator<Result> {
 

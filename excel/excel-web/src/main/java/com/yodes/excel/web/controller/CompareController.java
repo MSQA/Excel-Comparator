@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.yodes.excel.comparator.ComparatorService;
-import com.yodes.excel.comparator.model.ComparatorResult;
-import com.yodes.excel.web.dao.ResultRepository;
+import com.yodes.excel.model.ComparatorResult;
+import com.yodes.excel.model.EnumType;
+import com.yodes.excel.model.Result;
+import com.yodes.excel.model.dao.ResultRepository;
 import com.yodes.excel.web.model.Compare;
-import com.yodes.excel.web.model.EnumType;
-import com.yodes.excel.web.model.Result;
 import com.yodes.excel.web.util.DateHelper;
 
 /**

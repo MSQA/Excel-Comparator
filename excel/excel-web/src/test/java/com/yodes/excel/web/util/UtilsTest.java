@@ -7,8 +7,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.yodes.excel.web.util.Utils;
-
 public class UtilsTest {
 
 	@Test

@@ -3,7 +3,7 @@ package com.yodes.excel.web.util;
 import java.util.Comparator;
 import java.util.Date;
 
-import com.yodes.excel.web.model.ResultsGroup;
+import com.yodes.excel.model.ResultsGroup;
 
 public class ResultsGroupComparitor implements Comparator<ResultsGroup> {
 

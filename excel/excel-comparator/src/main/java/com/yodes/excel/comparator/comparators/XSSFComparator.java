@@ -4,17 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.yodes.excel.comparator.model.ComparatorResult;
 import com.yodes.excel.comparator.util.ComparatorUtils;
 import com.yodes.excel.comparator.util.FileUtil;
+import com.yodes.excel.model.ComparatorResult;
 
 /**
  * Comparator to detect and compare XSSF spreadsheets
@@ -24,7 +23,7 @@ import com.yodes.excel.comparator.util.FileUtil;
 @Service
 public class XSSFComparator implements Comparator {
 
-	private static final Logger logger = LoggerFactory.getLogger(XSSFComparator.class);
+	private static final Logger logger = Logger.getLogger(XSSFComparator.class);
 
 	private static final boolean debugEnabled = logger.isDebugEnabled();
 

@@ -1,19 +1,18 @@
 package com.yodes.excel.comparator.util;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.yodes.excel.comparator.comparators.HSSFComparator;
-import com.yodes.excel.comparator.model.ExcelRow;
+import com.yodes.excel.model.ExcelRow;
 
 public class ComparatorUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(HSSFComparator.class);
+	private static final Logger logger = Logger.getLogger(HSSFComparator.class);
 
 	/**
 	 * Method to convert a {@link HSSFRow} to a {@link ExcelRow}

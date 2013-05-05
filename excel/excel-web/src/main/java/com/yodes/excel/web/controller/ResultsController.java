@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yodes.excel.web.dao.ResultRepository;
-import com.yodes.excel.web.model.EnumType;
-import com.yodes.excel.web.model.Result;
-import com.yodes.excel.web.model.ResultsGroup;
+import com.yodes.excel.model.EnumType;
+import com.yodes.excel.model.Result;
+import com.yodes.excel.model.ResultsGroup;
+import com.yodes.excel.model.dao.ResultRepository;
 import com.yodes.excel.web.util.ResultsComparitor;
 import com.yodes.excel.web.util.ResultsGroupComparitor;
 
@@ -62,7 +61,7 @@ public class ResultsController {
 		model.addAttribute("nightly", nightly);
 		model.addAttribute("onDemand", onDemand);
 		model.addAttribute("onCompare", onCompare);
-		if (!StringUtils.isEmpty(displayUUID)) {
+		if (displayUUID == null || displayUUID.isEmpty()) {
 			model.addAttribute("showUUID", displayUUID);
 		}
 	}
