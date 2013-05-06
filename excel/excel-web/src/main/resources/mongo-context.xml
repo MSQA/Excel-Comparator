@@ -10,11 +10,11 @@
 		<constructor-arg ref="mongoDbFactory" />
 	</bean>
 
-	<mongo:repositories base-package="com.yodes.excel.model.dao,com.yodes.excel.web.dao" />
+	<mongo:repositories base-package="com.yodes.excel.model.dao,com.yodes.excel.web.security" />
 
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.yodes.excel.model.dao,com.yodes.excel.web.dao" />
+		base-package="com.yodes.excel.model.dao,com.yodes.excel.web.security" />
 
 	<mongo:mapping-converter id="converter"
 		db-factory-ref="mongoDbFactory" />
