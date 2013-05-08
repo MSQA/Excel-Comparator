@@ -6,6 +6,8 @@ import java.util.List;
 
 public class ComparatorResult {
 
+	private boolean compared;
+
 	private boolean differenceDetected;
 
 	private String firstFileName;
@@ -159,5 +161,13 @@ public class ComparatorResult {
 
 	public void setDifferenceDetected(boolean differenceDetected) {
 		this.differenceDetected = differenceDetected;
+	}
+
+	public boolean isCompared() {
+		return compared;
+	}
+
+	public void setCompared(boolean compared) {
+		this.compared = compared;
 	}
 }

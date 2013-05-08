@@ -1,6 +1,7 @@
 package com.yodes.excel.comparator.comparators;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Service;
 
 import com.yodes.excel.comparator.util.ComparatorUtils;
@@ -29,19 +31,25 @@ public class HSSFComparator implements Comparator {
 	private static final boolean debugEnabled = logger.isDebugEnabled();
 
 	@Override
-	public boolean isComparator(File origional, File current) throws Exception {
+	public boolean isComparator(File origional, File current) {
 		try {
 			FileUtil.getHSSFWorkbook(origional);
 			FileUtil.getHSSFWorkbook(current);
 		} catch (OfficeXmlFileException ox) {
 			return Boolean.FALSE;
+		} catch (IOException e) {
+			throw new RuntimeException("IOException checking if this is the correct comparator", e);
 		}
 		return Boolean.TRUE;
 	}
 
 	@Override
-	public void compare(File origional, File current, ComparatorResult comparitorResult) throws Exception {
-		compare(FileUtil.getHSSFWorkbook(origional), FileUtil.getHSSFWorkbook(current), comparitorResult);
+	public void compare(File origional, File current, ComparatorResult comparitorResult) {
+		try {
+			compare(FileUtil.getHSSFWorkbook(origional), FileUtil.getHSSFWorkbook(current), comparitorResult);
+		} catch (Exception e) {
+			throw new RuntimeException("Error comparing excel reports", e);
+		}
 	}
 
 	protected ComparatorResult compare(HSSFWorkbook origional, HSSFWorkbook current, ComparatorResult comparitorResult)
@@ -116,6 +124,11 @@ public class HSSFComparator implements Comparator {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE;
 	}
 
 }

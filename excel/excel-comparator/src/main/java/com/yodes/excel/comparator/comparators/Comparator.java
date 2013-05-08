@@ -2,9 +2,11 @@ package com.yodes.excel.comparator.comparators;
 
 import java.io.File;
 
+import org.springframework.core.PriorityOrdered;
+
 import com.yodes.excel.model.ComparatorResult;
 
-public interface Comparator {
+public interface Comparator extends PriorityOrdered {
 
 	/**
 	 * Test to check if this comparator can compare these sheets
@@ -14,9 +16,8 @@ public interface Comparator {
 	 * @param current
 	 *            sheet to detect changes in
 	 * @return boolean if this comparator can compare these files
-	 * @throws Exception
 	 */
-	boolean isComparator(File origional, File current) throws Exception;
+	boolean isComparator(File origional, File current);
 
 	/**
 	 * @param origional
@@ -25,7 +26,6 @@ public interface Comparator {
 	 *            sheet to detect changes in
 	 * @param comparitorResult
 	 *            listing all differences (hopefully...)
-	 * @throws Exception
 	 */
-	void compare(File origional, File current, ComparatorResult comparitorResult) throws Exception;
+	void compare(File origional, File current, ComparatorResult comparitorResult);
 }

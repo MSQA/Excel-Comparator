@@ -12,7 +12,7 @@
 	</http>
 
 	<beans:bean id="mongoUserDetailsService"
-		class="com.yodes.excel.web.dao.mongo.MongoUserDetailsService">
+		class="com.yodes.excel.web.security.MongoUserDetailsService">
 	</beans:bean>
 
 	<authentication-manager>

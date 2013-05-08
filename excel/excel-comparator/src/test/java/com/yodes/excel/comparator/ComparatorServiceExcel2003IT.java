@@ -16,7 +16,7 @@ import com.yodes.excel.model.ComparatorResult;
 @ContextConfiguration(locations = {
 	"classpath:excel-comparator-applicationContext.xml"
 })
-public class Excel2003IT {
+public class ComparatorServiceExcel2003IT {
 
 	@Autowired
 	ComparatorService cs;

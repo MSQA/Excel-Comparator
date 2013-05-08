@@ -43,6 +43,10 @@
 			<groupId>com.yodes.excel</groupId>
 			<artifactId>excel-model</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<testResources>

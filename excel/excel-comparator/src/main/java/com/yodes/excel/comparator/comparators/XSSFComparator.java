@@ -1,6 +1,7 @@
 package com.yodes.excel.comparator.comparators;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.poi.POIXMLException;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Service;
 
 import com.yodes.excel.comparator.util.ComparatorUtils;
@@ -28,22 +30,29 @@ public class XSSFComparator implements Comparator {
 	private static final boolean debugEnabled = logger.isDebugEnabled();
 
 	@Override
-	public boolean isComparator(File origional, File current) throws Exception {
+	public boolean isComparator(File origional, File current) {
 		try {
 			FileUtil.getXSSFWorkbook(origional);
 			FileUtil.getXSSFWorkbook(current);
 		} catch (POIXMLException pme) {
 			return Boolean.FALSE;
+		} catch (IOException e) {
+			throw new RuntimeException("IOException checking if this is the correct comparator", e);
 		}
 		return Boolean.TRUE;
 	}
 
 	@Override
-	public void compare(File origional, File current, ComparatorResult comparitorResult) throws Exception {
-		compare(FileUtil.getXSSFWorkbook(origional), FileUtil.getXSSFWorkbook(current), comparitorResult);
+	public void compare(File origional, File current, ComparatorResult comparitorResult) {
+		try {
+			compare(FileUtil.getXSSFWorkbook(origional), FileUtil.getXSSFWorkbook(current), comparitorResult);
+		} catch (Exception e) {
+			throw new RuntimeException("Error comparing excel reports", e);
+		}
 	}
 
-	protected ComparatorResult compare(XSSFWorkbook origional, XSSFWorkbook current, ComparatorResult comparitorResult) throws Exception {
+	protected ComparatorResult compare(XSSFWorkbook origional, XSSFWorkbook current, ComparatorResult comparitorResult)
+			throws Exception {
 		if (debugEnabled) {
 			logger.debug("Starting comparision of workbooks");
 		}
@@ -103,7 +112,8 @@ public class XSSFComparator implements Comparator {
 								logger.debug("Comparing cells " + orgionalString + " : " + currentString);
 							}
 							if (!orgionalString.equals(currentString)) {
-								comparitorResult.addConflictingRows(ComparatorUtils.convertToExcelRow(origionalRow), ComparatorUtils.convertToExcelRow(currentRow));
+								comparitorResult.addConflictingRows(ComparatorUtils.convertToExcelRow(origionalRow),
+										ComparatorUtils.convertToExcelRow(currentRow));
 							}
 						} catch (Exception e) {
 							logger.error("Exception reading cell value from sheet", e);
@@ -112,6 +122,11 @@ public class XSSFComparator implements Comparator {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE + 1;
 	}
 
 }

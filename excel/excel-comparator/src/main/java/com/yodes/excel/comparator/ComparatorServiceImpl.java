@@ -12,20 +12,19 @@ import com.yodes.excel.comparator.comparators.Comparator;
 import com.yodes.excel.model.ComparatorResult;
 
 /**
- * Service to compare files. Currently supported formats listed below
- * <p>
- * <ul>
- * <li>HSSF Spreadsheets (excel 2003)</li>
- * <li>XSSF Spreadsheets (excel 2007)</li>
- * </ul>
+ * Service to compare excel files. Auto-wired of classes that implement {@link Comparator}
  */
 @Service
 public class ComparatorServiceImpl implements ComparatorService, InitializingBean {
 
-	@Autowired
 	private List<Comparator> comparators;
 
-	public ComparatorResult compareReports(File origional, File current) throws Exception {
+	@Autowired
+	public ComparatorServiceImpl(List<Comparator> comparators) {
+		this.comparators = comparators;
+	}
+
+	public ComparatorResult compareReports(File origional, File current) {
 		ComparatorResult comparitorResult = new ComparatorResult();
 		comparitorResult.setFirstFileName(origional.getName());
 		comparitorResult.setSecondFileName(current.getName());
@@ -36,6 +35,7 @@ public class ComparatorServiceImpl implements ComparatorService, InitializingBea
 				compared = Boolean.TRUE;
 			}
 		}
+		comparitorResult.setCompared(compared);
 		return comparitorResult;
 	}
 

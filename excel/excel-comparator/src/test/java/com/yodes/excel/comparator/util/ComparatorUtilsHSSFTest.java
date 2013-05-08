@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 
 import com.yodes.excel.model.ExcelRow;
 
-public class ComparatorUtilsTest {
+public class ComparatorUtilsHSSFTest {
 
 	@Test
 	public void testConvertToExcelRowNull() {
