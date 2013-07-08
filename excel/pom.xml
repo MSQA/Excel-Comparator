@@ -10,11 +10,10 @@
 	<description>excel</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.3.RELEASE</org.springframework-version>
 		<org.springframework.security-version>3.1.4.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.6.9</org.aspectj-version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<maven.tomcat.plugin>2.0-beta-1</maven.tomcat.plugin>
 	</properties>
 	<repositories>
 		<repository>
@@ -30,14 +29,6 @@
 		<repository>
 			<id>springsource-milestone</id>
 			<url>http://repository.springsource.com/maven/bundles/milestone</url>
-		</repository>
-		<repository>
-			<id>springsource-external</id>
-			<url>http://repository.springsource.com/maven/bundles/snapshot</url>
-		</repository>
-		<repository>
-			<id>spring.repo</id>
-			<url>http://maven.springframework.org/milestone</url>
 		</repository>
 	</repositories>
 	<dependencyManagement>
@@ -206,11 +197,27 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</testResource>
+		</testResources>
 	</build>
 </project>

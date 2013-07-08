@@ -48,17 +48,4 @@
 			<artifactId>easymock</artifactId>
 		</dependency>
 	</dependencies>
-	<build>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.properties</include>
-					<include>**/*.xlsx</include>
-					<include>**/*.xls</include>
-					<include>**/*.xml</include>
-				</includes>
-			</testResource>
-		</testResources>
-	</build>
 </project>

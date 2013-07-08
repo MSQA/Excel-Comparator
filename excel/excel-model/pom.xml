@@ -35,16 +35,4 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 	</dependencies>
-	<build>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.xml</include>
-					<include>**/*.properties</include>
-					<include>**/*.txt</include>
-				</includes>
-			</testResource>
-		</testResources>
-	</build>
 </project>
