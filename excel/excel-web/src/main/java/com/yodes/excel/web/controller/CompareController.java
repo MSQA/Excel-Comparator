@@ -48,8 +48,9 @@ public class CompareController implements InitializingBean {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public void compare(Model model) {
+	public String compare(Model model) {
 		logger.info("Compare controller get request");
+		return "compare";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

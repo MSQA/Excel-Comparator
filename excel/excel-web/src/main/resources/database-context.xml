@@ -4,6 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<mongo:db-factory host="localhost" port="27017"
-		dbname="excel" />
+	<mongo:db-factory host="localhost" port="27017" dbname="excel" />
+	
 </beans>
