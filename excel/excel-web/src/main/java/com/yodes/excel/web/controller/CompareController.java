@@ -23,9 +23,10 @@ import com.yodes.excel.web.model.Compare;
 import com.yodes.excel.web.util.DateHelper;
 
 /**
- * Handles requests for the compare page
+ * Handles requests for the compare page and the root page 
+ * TODO add welcome page for root page
  */
-@RequestMapping("compare")
+@RequestMapping({"compare",""})
 @Controller
 public class CompareController implements InitializingBean {
 
