@@ -13,10 +13,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.yodes.excel</groupId>
-			<artifactId>excel-comparator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.yodes.excel</groupId>
 			<artifactId>excel-model</artifactId>
 		</dependency>
 		<dependency>

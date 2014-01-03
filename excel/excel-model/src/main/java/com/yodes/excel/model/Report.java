@@ -3,23 +3,42 @@ package com.yodes.excel.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Class to represent a comparison of two files stored as a document in the database
+ */
 @Document
 public class Report {
 
+	/**
+	 * Unique ID of the report
+	 */
 	@Id
 	private String id;
 
+	/**
+	 * Username of the user who uploaded the report, null if un-authenticated
+	 */
 	private String userName;
 
+	/**
+	 * Date the report was added
+	 */
 	private String dateAdded;
 
-	private String zipLocation;
+	/**
+	 * ID of the base file uploaded
+	 */
+	private String baseFileId;
 
-	private String zipName;
+	/**
+	 * ID of the new or updated file to compare with the base report
+	 */
+	private String newFileId;
 
-	private String idLastValidated;
-
-	private boolean statusLastRun;
+	/**
+	 * status of the current report ie. queue, running, failed, completed ect
+	 */
+	private String status;
 
 	@Override
 	public String toString() {
@@ -27,31 +46,11 @@ public class Report {
 		sb.append("id : " + id + " ,");
 		sb.append("userName : " + userName + " ,");
 		sb.append("dateAdded : " + dateAdded + " ,");
-		sb.append("zipLocation : " + zipLocation + " ,");
-		sb.append("zipName : " + zipName + " ,");
-		sb.append("idLastValidated : " + idLastValidated + " ,");
-		sb.append("statusLastRun : " + statusLastRun + " ,");
+		sb.append("baseFileId : " + baseFileId + " ,");
+		sb.append("newFileId : " + newFileId + " ,");
+		sb.append("status : " + status + " ,");
 		return sb.toString();
 	}
-
-	// TODO move this to web
-	// @Transient
-	// private CommonsMultipartFile grabFile;
-	//
-	// /**
-	// * @param grabFile
-	// * the grabFile to set
-	// */
-	// public void setGrabFile(CommonsMultipartFile grabFile) {
-	// this.grabFile = grabFile;
-	// }
-	//
-	// /**
-	// * @return the grabFile
-	// */
-	// public CommonsMultipartFile getGrabFile() {
-	// return grabFile;
-	// }
 
 	/**
 	 * @param id
@@ -83,72 +82,54 @@ public class Report {
 		this.dateAdded = dateAdded;
 	}
 
-	/**
-	 * @return the zipLocation
-	 */
-	public String getZipLocation() {
-		return zipLocation;
-	}
-
-	/**
-	 * @param zipLocation
-	 *            the zipLocation to set
-	 */
-	public void setZipLocation(String zipLocation) {
-		this.zipLocation = zipLocation;
-	}
-
-	/**
-	 * @return the idLastValidated
-	 */
-	public String getIdLastValidated() {
-		return idLastValidated;
-	}
-
-	/**
-	 * @param idLastValidated
-	 *            the idLastValidated to set
-	 */
-	public void setIdLastValidated(String idLastValidated) {
-		this.idLastValidated = idLastValidated;
-	}
-
-	/**
-	 * @return the zipName
-	 */
-	public String getZipName() {
-		return zipName;
-	}
-
-	/**
-	 * @param zipName
-	 *            the zipName to set
-	 */
-	public void setZipName(String zipName) {
-		this.zipName = zipName;
-	}
-
-	/**
-	 * @return the statusLastRun
-	 */
-	public boolean getStatusLastRun() {
-		return statusLastRun;
-	}
-
-	/**
-	 * @param statusLastRun
-	 *            the statusLastRun to set
-	 */
-	public void setStatusLastRun(boolean statusLastRun) {
-		this.statusLastRun = statusLastRun;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	/**
+	 * @return the baseFileId
+	 */
+	public String getBaseFileId() {
+		return baseFileId;
+	}
+
+	/**
+	 * @param baseFileId the baseFileId to set
+	 */
+	public void setBaseFileId(String baseFileId) {
+		this.baseFileId = baseFileId;
+	}
+
+	/**
+	 * @return the newFileId
+	 */
+	public String getNewFileId() {
+		return newFileId;
+	}
+
+	/**
+	 * @param newFileId the newFileId to set
+	 */
+	public void setNewFileId(String newFileId) {
+		this.newFileId = newFileId;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

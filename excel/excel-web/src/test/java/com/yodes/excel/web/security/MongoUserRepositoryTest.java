@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-	"classpath:test-dao-context.xml"
+		"classpath:test-dao-context.xml", "classpath:security-context.xml"
 })
 public class MongoUserRepositoryTest {
 

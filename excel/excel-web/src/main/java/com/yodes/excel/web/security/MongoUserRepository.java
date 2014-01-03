@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
+import com.yodes.excel.web.security.MongoUser;
+
 
 public interface MongoUserRepository extends CrudRepository<MongoUser, String> {
 

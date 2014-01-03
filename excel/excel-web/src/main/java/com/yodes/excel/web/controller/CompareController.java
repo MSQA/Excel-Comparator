@@ -2,11 +2,18 @@ package com.yodes.excel.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -14,19 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.yodes.excel.comparator.ComparatorService;
-import com.yodes.excel.model.ComparatorResult;
-import com.yodes.excel.model.EnumType;
-import com.yodes.excel.model.Result;
-import com.yodes.excel.model.dao.ResultRepository;
-import com.yodes.excel.web.model.Compare;
-import com.yodes.excel.web.util.DateHelper;
+import com.yodes.excel.model.Report;
+import com.yodes.excel.model.dao.FileRepository;
+import com.yodes.excel.model.dao.ReportRepository;
+import com.yodes.excel.model.message.CompareMessage;
+import com.yodes.excel.web.model.CommonsMultipartFiles;
+import com.yodes.excel.web.service.CompareMessageSender;
 
 /**
- * Handles requests for the compare page and the root page 
- * TODO add welcome page for root page
+ * Handles requests for the compare page and the root page TODO add welcome page for root page
  */
-@RequestMapping({"compare",""})
+@RequestMapping({
+		"compare", ""
+})
 @Controller
 public class CompareController implements InitializingBean {
 
@@ -35,18 +42,13 @@ public class CompareController implements InitializingBean {
 	private File compareFolder = new File("C:/filestore/compare/");
 
 	@Autowired
-	private ComparatorService comparitorService;
+	private CompareMessageSender reportSender;
 
 	@Autowired
-	private ResultsController resultsController;
+	private ReportRepository reportRepository;
 
 	@Autowired
-	private ResultRepository resultRepository;
-
-	public CompareController() {
-		compareFolder.mkdirs();
-		logger.debug("Contructing compare controller and C:/filestore/compare/");
-	}
+	private FileRepository fileRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String compare(Model model) {
@@ -55,45 +57,47 @@ public class CompareController implements InitializingBean {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String compare(Compare compare, Model model) {
+	public void compare(CommonsMultipartFiles compare, Model model, HttpServletResponse response) throws IOException {
 		logger.info(compare.getNewFile().getOriginalFilename());
 		logger.info(compare.getOriginalFile().getOriginalFilename());
-		try {
-			String resultUUID = UUID.randomUUID().toString();
-			File origionalFile = getFileFromCommonsMultipartFile(compare.getOriginalFile(), resultUUID);
-			File currentFile = getFileFromCommonsMultipartFile(compare.getNewFile(), resultUUID);
-			ComparatorResult compareResult = comparitorService.compareReports(origionalFile, currentFile);
-			saveResult(compareResult, origionalFile.getName(), resultUUID);
-			logger.info("Is error found in compare =  " + compareResult.isDifferenceDetected() + " with label : " + resultUUID);
-			resultsController.populateModelWithResults(model, resultUUID);
-			return "results";
-		} catch (Exception e) {
-			logger.error("Error running services", e);
+		String reportId = UUID.randomUUID().toString();
+
+		CommonsMultipartFile originalFile = compare.getOriginalFile();
+		String originalFileId = fileRepository.save(originalFile.getInputStream(), originalFile.getName());
+
+		CommonsMultipartFile newFile = compare.getNewFile();
+		String newFileId = fileRepository.save(newFile.getInputStream(), newFile.getName());
+
+		CompareMessage message = new CompareMessage();
+		message.setReportId(reportId);
+		message.setBaseFileId(originalFileId);
+		message.setUpdatedFileId(newFileId);
+
+		saveReport(reportId, originalFileId, newFileId);
+
+		reportSender.sendCompareMessage(message);
+		response.sendRedirect("results");
+	}
+
+	private void saveReport(String reportId, String originalFileId, String newFileId) {
+		Report report = new Report();
+		report.setId(reportId);
+		Date currentDate = Calendar.getInstance().getTime();
+		report.setDateAdded(DateFormat.getDateInstance().format(currentDate));
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			report.setUserName(auth.getName());
 		}
-		return "compare";
-	}
-
-	protected File getFileFromCommonsMultipartFile(CommonsMultipartFile fileStream, String label) throws IllegalStateException, IOException {
-		File folder = new File(compareFolder, label);
-		folder.mkdirs();
-		File origionalFile = new File(folder, fileStream.getOriginalFilename());
-		fileStream.transferTo(origionalFile);
-		return origionalFile;
-	}
-
-	protected void saveResult(ComparatorResult compareResult, String name, String label) {
-		Result result = new Result();
-		result.setResultStatus(!compareResult.isDifferenceDetected());
-		result.setRunType(EnumType.COMPARE);
-		result.setName(name);
-		result.setDate(DateHelper.getDate());
-		result.setLabel(label);
-		result.setCompareResult(compareResult);
-		resultRepository.save(result);
+		reportRepository.save(report);
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(resultRepository);
+		Assert.notNull(reportRepository);
+		if (!compareFolder.exists()) {
+			compareFolder.mkdirs();
+			logger.info("Creating location to store results C:/filestore/compare/");
+		}
 	}
 }

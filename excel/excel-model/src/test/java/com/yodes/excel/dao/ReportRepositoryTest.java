@@ -45,9 +45,6 @@ public class ReportRepositoryTest {
 		TestCase.assertEquals(1, reports.size());
 		Report dbReport = reports.get(0);
 		TestCase.assertEquals(report.getDateAdded(), dbReport.getDateAdded());
-		TestCase.assertEquals(report.getIdLastValidated(), dbReport.getIdLastValidated());
-		TestCase.assertEquals(report.getZipLocation(), dbReport.getZipLocation());
-		TestCase.assertEquals(report.getZipName(), dbReport.getZipName());
 		TestCase.assertEquals(report.getUserName(), dbReport.getUserName());
 	}
 
@@ -61,28 +58,22 @@ public class ReportRepositoryTest {
 		TestCase.assertEquals(report.getId(), reports.get(0).getId());
 		Report retreivedReport = reports.get(0);
 		TestCase.assertEquals(retreivedReport.getId(), report.getId());
-		TestCase.assertEquals(retreivedReport.getZipLocation(), report.getZipLocation());
 	}
 
 	@Test
 	public void testDelete() {
 		Report report = createReport();
 		Report report2 = createReport();
-		report2.setZipLocation("location 2");
 		reportRepository.save(report);
 		reportRepository.save(report2);
 		reportRepository.delete(report.getId());
 		TestCase.assertEquals(1, reportRepository.findAll().size());
-		TestCase.assertEquals("location 2", reportRepository.findOne(report2.getId()).getZipLocation());
 	}
 
 	private Report createReport() {
 		Report report = new Report();
 		report.setDateAdded("date1");
-		report.setIdLastValidated("12");
 		report.setUserName("yoda");
-		report.setZipLocation("zip location here");
-		report.setZipName("zip Name");
 		return report;
 	}
 

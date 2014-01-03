@@ -1,12 +1,8 @@
 package com.yodes.excel.model.dao;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,11 +10,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
-import org.springframework.util.FileCopyUtils;
 
 import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSFile;
 
-@Repository
+@Repository("fileRepository")
 public class FileRepositoryImpl implements FileRepository {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(FileRepositoryImpl.class);
@@ -27,42 +23,36 @@ public class FileRepositoryImpl implements FileRepository {
 	private GridFsTemplate gridTemplate;
 
 	@Override
-	public String save(File file) throws IOException {
-		Assert.notNull(file);
-		Assert.isTrue(file.exists());
-		FileInputStream fileStream = FileUtils.openInputStream(file);
-		gridTemplate.store(fileStream, file.getAbsolutePath());
-		if (fileStream != null) {
-			fileStream.close();
+	public String save(InputStream inputStream, String fileName) throws IOException {
+		String fileId = null;
+		try {
+			GridFSFile response = gridTemplate.store(inputStream, fileName);
+			fileId = response.getId().toString();
+		} finally {
+			if (inputStream != null) {
+				inputStream.close();
+			}
 		}
-		return file.getAbsolutePath();
+		if (logger.isDebugEnabled()) {
+			logger.debug("Saved file using fileId {}", fileId);
+		}
+		return fileId;
 	}
 
 	@Override
-	public File findOne(String fileLocation) throws IOException {
-		Assert.notNull(fileLocation);
+	public void delete(String fileId) {
+		Assert.notNull(fileId);
+		gridTemplate.delete(new Query(Criteria.where("_id").is(fileId)));
+	}
 
-		GridFSDBFile gridFSDBFile = gridTemplate.findOne(new Query(Criteria.where("filename").is(fileLocation)));
+	@Override
+	public InputStream findOne(String fileId) {
+		InputStream input = null;
+		GridFSDBFile gridFSDBFile = gridTemplate.findOne(new Query(Criteria.where("_id").is(fileId)));
 		if (gridFSDBFile != null) {
-			File outputFile = new File(fileLocation);
-			if (outputFile.exists()) {
-				logger.warn("Overwriting file :" + fileLocation);
-			}
-			if (!outputFile.getParentFile().exists()) {
-				logger.info("Creating parent folders for location : " + fileLocation);
-				outputFile.getParentFile().mkdirs();
-			}
-			OutputStream outStream = new FileOutputStream(outputFile);
-			FileCopyUtils.copy(gridFSDBFile.getInputStream(), outStream);
-			return outputFile;
+			input = gridFSDBFile.getInputStream();
 		}
-		return null;
-	}
-
-	@Override
-	public void delete(String fileLocation) {
-		Assert.notNull(fileLocation);
-		gridTemplate.delete(new Query(Criteria.where("filename").is(fileLocation)));
+		return input;
 	}
 
 }

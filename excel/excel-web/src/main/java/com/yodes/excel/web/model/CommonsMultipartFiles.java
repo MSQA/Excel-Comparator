@@ -2,8 +2,19 @@ package com.yodes.excel.web.model;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-public class Compare {
+/**
+ * Class to hold references to the uploaded file input streams
+ */
+public class CommonsMultipartFiles {
+
+	/**
+	 * Original file to be used as the base for comparison
+	 */
 	private CommonsMultipartFile originalFile;
+
+	/**
+	 * Updated file to detect changes within
+	 */
 	private CommonsMultipartFile newFile;
 
 	/**

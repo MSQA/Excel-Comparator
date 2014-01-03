@@ -14,7 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
+
+/**
+ * Implementation of the {@link UserDetailsService} that retrieves the users information stored in the mongodb
+ */
+@Service("mongoUserDetailsService")
 public class MongoUserDetailsService implements UserDetailsService, InitializingBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(MongoUserDetailsService.class);

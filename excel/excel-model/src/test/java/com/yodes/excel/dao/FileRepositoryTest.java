@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yodes.excel.model.dao.FileRepositoryImpl;
+import com.yodes.excel.model.dao.FileRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -22,7 +23,7 @@ import com.yodes.excel.model.dao.FileRepositoryImpl;
 public class FileRepositoryTest {
 
 	@Autowired
-	private FileRepositoryImpl fileRepository;
+	private FileRepository fileRepository;
 
 	@Autowired
 	private GridFsTemplate gridTemplate;
@@ -35,14 +36,14 @@ public class FileRepositoryTest {
 	@Test
 	public void testSave() throws IOException {
 		File testFile = new File("target/test-classes/textfile.txt");
-		String id = fileRepository.save(testFile);
+		String id = fileRepository.save(FileUtils.openInputStream(testFile), testFile.getName());
 		TestCase.assertNotNull(id);
 	}
 
 	@Test
 	public void testAddFindAndDelete() throws IOException {
 		File testFile = new File("target/test-classes/textfile.txt");
-		String id = fileRepository.save(testFile);
+		String id = fileRepository.save(FileUtils.openInputStream(testFile), testFile.getName());
 		TestCase.assertNotNull(fileRepository.findOne(id));
 		fileRepository.delete(id);
 		TestCase.assertNull(fileRepository.findOne(id));

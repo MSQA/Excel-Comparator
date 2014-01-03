@@ -10,7 +10,8 @@
 		<config>src/main/resources/database-context.xml</config>
 		<config>src/main/resources/excel-context.xml</config>
 		<config>src/main/webapp/WEB-INF/security-context.xml</config>
-		<config>src/test/java/com/yodes/excel/web/services/ReportSenderTest-context.xml</config>
+		<config>src/main/resources/services-context.xml</config>
+		<config>src/main/resources/jms-connection-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

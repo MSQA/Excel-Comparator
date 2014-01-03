@@ -1,38 +1,38 @@
 package com.yodes.excel.model.dao;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.util.Assert;
 
 public interface FileRepository {
 
 	/**
-	 * Save a file and return the file id. {@link Assert} the file is not null and exists
+	 * Save a file input stream and return the file id. Once the file has been uploaded it will close the input stream
 	 * 
-	 * @param file
+	 * @param fileInputstream
 	 *            not null and exists
-	 * @return fileName donating the file's path used as a unique key to retreive the file
+	 * @param fileName
+	 *            name of the file to store
+	 * @return file unique id
 	 * @throws IOException
 	 */
-	String save(File file) throws IOException;
+	String save(InputStream fileInputstream, String fileName) throws IOException;
 
 	/**
 	 * Delete any file that matches passed fileLocation. {@link Assert} fileLocation is not null
 	 * 
-	 * @param fileLocation
-	 *            must not be null or empty
+	 * @param fileId
+	 *            unique id
 	 */
-	void delete(String fileLocation);
+	void delete(String fileId);
 
 	/**
-	 * Find a single record that matches the fileLocation and return a file to it. {@link Assert} id is not null
+	 * Delete any file that matches passed fileLocation. {@link Assert} fileLocation is not null
 	 * 
-	 * @param fileLocation
-	 *            must not be null or empty
-	 * @return
-	 * @throws IOException
+	 * @param fileId
+	 *            unique id
 	 */
-	File findOne(String fileLocation) throws IOException;
+	InputStream findOne(String fileId);
 
 }
