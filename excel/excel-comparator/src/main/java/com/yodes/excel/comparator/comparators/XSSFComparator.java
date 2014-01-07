@@ -13,9 +13,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Service;
 
+import com.yodes.excel.api.model.ComparatorResult;
 import com.yodes.excel.comparator.util.ComparatorUtils;
 import com.yodes.excel.comparator.util.FileUtil;
-import com.yodes.excel.model.ComparatorResult;
 
 /**
  * Comparator to detect and compare XSSF spreadsheets

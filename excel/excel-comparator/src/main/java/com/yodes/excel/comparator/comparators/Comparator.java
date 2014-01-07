@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.springframework.core.PriorityOrdered;
 
-import com.yodes.excel.model.ComparatorResult;
+import com.yodes.excel.api.model.ComparatorResult;
 
 public interface Comparator extends PriorityOrdered {
 

@@ -41,7 +41,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.yodes.excel</groupId>
-			<artifactId>excel-model</artifactId>
+			<artifactId>excel-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.easymock</groupId>

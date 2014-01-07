@@ -10,8 +10,8 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.yodes.excel.api.model.ComparatorResult;
 import com.yodes.excel.comparator.comparators.Comparator;
-import com.yodes.excel.model.ComparatorResult;
 
 public class ComparatorServiceImplTest {
 

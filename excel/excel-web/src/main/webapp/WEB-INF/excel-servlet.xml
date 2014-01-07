@@ -9,7 +9,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.yodes.excel.web.controller" />
 
-	<bean id="fileRepository" class="com.yodes.excel.model.dao.FileRepositoryImpl" />
+	<bean id="fileRepository" class="com.yodes.excel.api.model.dao.FileRepositoryImpl" />
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/styles/**" location="/styles/" />

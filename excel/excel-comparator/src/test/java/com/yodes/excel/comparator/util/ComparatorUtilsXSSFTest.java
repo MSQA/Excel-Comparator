@@ -5,7 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
-import com.yodes.excel.model.ExcelRow;
+import com.yodes.excel.api.model.ExcelRow;
 
 public class ComparatorUtilsXSSFTest {
 

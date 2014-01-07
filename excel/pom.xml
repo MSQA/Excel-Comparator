@@ -46,7 +46,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.yodes.excel</groupId>
-				<artifactId>excel-model</artifactId>
+				<artifactId>excel-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -86,6 +86,17 @@
 				<artifactId>spring-test</artifactId>
 				<version>${org.springframework-version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-core</artifactId>
+				<version>3.0.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.integration</groupId>
+				<artifactId>spring-integration-jms</artifactId>
+				<version>3.0.0.RELEASE</version>
 			</dependency>
 
 			<!-- Spring data -->
@@ -202,7 +213,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>excel-model</module>
+		<module>excel-api</module>
 		<module>excel-comparator</module>
 		<module>excel-web</module>
 	</modules>

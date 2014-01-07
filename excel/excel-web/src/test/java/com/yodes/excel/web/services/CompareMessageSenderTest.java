@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 
-import com.yodes.excel.model.message.CompareMessage;
+import com.yodes.excel.api.model.message.CompareMessage;
 import com.yodes.excel.web.Setup;
 import com.yodes.excel.web.service.CompareMessageSender;
 

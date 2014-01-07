@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.yodes.excel.model.Result;
-import com.yodes.excel.model.dao.ResultRepository;
+import com.yodes.excel.api.model.Result;
+import com.yodes.excel.api.model.dao.ResultRepository;
 
 @Service
 public class ResultRepositoryStub implements ResultRepository {

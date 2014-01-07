@@ -7,8 +7,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 
+import com.yodes.excel.api.model.ExcelRow;
 import com.yodes.excel.comparator.comparators.HSSFComparator;
-import com.yodes.excel.model.ExcelRow;
 
 public class ComparatorUtils {
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import com.yodes.excel.model.message.CompareMessage;
+import com.yodes.excel.api.model.message.CompareMessage;
 
 /**
  * Implementation of the {@link CompareMessageSender} interface that used the {@link JmsTemplate} to send messages

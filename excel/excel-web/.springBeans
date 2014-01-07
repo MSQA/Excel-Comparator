@@ -12,6 +12,8 @@
 		<config>src/main/webapp/WEB-INF/security-context.xml</config>
 		<config>src/main/resources/services-context.xml</config>
 		<config>src/main/resources/jms-connection-context.xml</config>
+		<config>src/main/resources/jms-context.xml</config>
+		<config>src/main/resources/spring-integration-context-backup.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yodes.excel.model.EnumType;
-import com.yodes.excel.model.Result;
-import com.yodes.excel.model.ResultsGroup;
-import com.yodes.excel.model.dao.ResultRepository;
+import com.yodes.excel.api.model.EnumType;
+import com.yodes.excel.api.model.Result;
+import com.yodes.excel.api.model.ResultsGroup;
+import com.yodes.excel.api.model.dao.ResultRepository;
 import com.yodes.excel.web.util.ResultsComparitor;
 import com.yodes.excel.web.util.ResultsGroupComparitor;
 

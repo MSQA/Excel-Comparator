@@ -21,12 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.yodes.excel.model.Report;
-import com.yodes.excel.model.dao.FileRepository;
-import com.yodes.excel.model.dao.ReportRepository;
-import com.yodes.excel.model.message.CompareMessage;
+import com.yodes.excel.api.model.Report;
+import com.yodes.excel.api.model.dao.FileRepository;
+import com.yodes.excel.api.model.dao.ReportRepository;
+import com.yodes.excel.api.service.ComparatorService;
 import com.yodes.excel.web.model.CommonsMultipartFiles;
-import com.yodes.excel.web.service.CompareMessageSender;
 
 /**
  * Handles requests for the compare page and the root page TODO add welcome page for root page
@@ -42,7 +41,7 @@ public class CompareController implements InitializingBean {
 	private File compareFolder = new File("C:/filestore/compare/");
 
 	@Autowired
-	private CompareMessageSender reportSender;
+	private ComparatorService comparatorService;
 
 	@Autowired
 	private ReportRepository reportRepository;
@@ -57,7 +56,7 @@ public class CompareController implements InitializingBean {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void compare(CommonsMultipartFiles compare, Model model, HttpServletResponse response) throws IOException {
+	public void compare(CommonsMultipartFiles compare, HttpServletResponse response) throws IOException {
 		logger.info(compare.getNewFile().getOriginalFilename());
 		logger.info(compare.getOriginalFile().getOriginalFilename());
 		String reportId = UUID.randomUUID().toString();
@@ -68,18 +67,13 @@ public class CompareController implements InitializingBean {
 		CommonsMultipartFile newFile = compare.getNewFile();
 		String newFileId = fileRepository.save(newFile.getInputStream(), newFile.getName());
 
-		CompareMessage message = new CompareMessage();
-		message.setReportId(reportId);
-		message.setBaseFileId(originalFileId);
-		message.setUpdatedFileId(newFileId);
+		Report report = saveReport(reportId, originalFileId, newFileId);
 
-		saveReport(reportId, originalFileId, newFileId);
-
-		reportSender.sendCompareMessage(message);
+		comparatorService.compareReports(report);
 		response.sendRedirect("results");
 	}
 
-	private void saveReport(String reportId, String originalFileId, String newFileId) {
+	private Report saveReport(String reportId, String originalFileId, String newFileId) {
 		Report report = new Report();
 		report.setId(reportId);
 		Date currentDate = Calendar.getInstance().getTime();
@@ -90,6 +84,7 @@ public class CompareController implements InitializingBean {
 			report.setUserName(auth.getName());
 		}
 		reportRepository.save(report);
+		return report;
 	}
 
 	@Override

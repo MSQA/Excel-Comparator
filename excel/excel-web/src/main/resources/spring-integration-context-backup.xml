@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="comparatorQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="com.yodes.compare.queue" />
+	</bean>
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="comparatorQueue" />
+	</bean>
+
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+
+
+	<int:gateway id="comparatorService"
+		service-interface="com.yodes.excel.api.service.ComparatorService"
+		default-request-channel="comparatorQueueChannel">
+		<int:method name="compareReports" request-channel="comparatorQueueChannel" />
+	</int:gateway>
+
+	<int-jms:channel id="comparatorQueueChannel" queue="comparatorQueue" />
+
+
+</beans>
